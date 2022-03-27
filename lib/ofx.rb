@@ -41,7 +41,7 @@ module OFX
     end
 
     def bal_amt=(amt)
-      @bal_amt = BigDecimal.new(amt)
+      @bal_amt = BigDecimal(amt)
     end
 
     def transaction(&block)
@@ -56,7 +56,7 @@ module OFX
     end
 
     def print_headers
-      @headers.map { |key, value| "#{key}:#{value}" }.join("\n") + "\n\n" 
+      @headers.map { |key, value| "#{key}:#{value}" }.join("\n") + "\n\n"
     end
 
     def print_body

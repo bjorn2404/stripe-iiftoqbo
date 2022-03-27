@@ -40,7 +40,7 @@ module IIF
         end
       end
     end
-    
+
     def parse_definition(fields)
       key = fields[0][1..-1]
       values = fields[1..-1]
@@ -52,12 +52,12 @@ module IIF
 
       entry = Entry.new
       entry.type = fields[0]
-      
+
       fields[1..-1].each_with_index do |field, idx|
         entry.send(definition[idx] + "=", field)
       end
 
-      entry.amount = BigDecimal.new(entry.amount) if entry.amount
+      entry.amount = BigDecimal(entry.amount) if entry.amount
       entry.date = Date.strptime(entry.date, "%m/%d/%Y") if entry.date
 
       @entries.push(entry)
@@ -68,7 +68,7 @@ module IIF
       in_transaction = false
 
       @entries.each do |entry|
-        
+
         case entry.type
 
         when "TRNS"
@@ -78,7 +78,7 @@ module IIF
           end
           transaction = Transaction.new
           in_transaction = true
-          
+
         when "ENDTRNS"
           @transactions.push(transaction)
           in_transaction = false
